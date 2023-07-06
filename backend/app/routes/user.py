@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, security
 from typing import List
 from sqlalchemy import orm
-from..schemas.index import User, UserCreate, ChangePassword
+from..schemas.index import User, UserCreate, ChangePassword, UserUpdate
 from ..services import get_db, get_user_by_email, create_user, \
     get_all_users, get_user_by_id, update_user, create_token, authenticate_user, \
-    get_current_user
+    get_current_user, set_user_to_admin
 
 user = APIRouter()
 
@@ -63,6 +63,15 @@ def update_post(
 ):
 
     return update_user(db=db, user=user, user_id=user_id)
+
+@user.patch("/user/set_admin/{user_id}", response_model=User, tags=["user"])
+def update_post(
+    user_id: int,
+    user: UserUpdate,
+    db: orm.Session = Depends(get_db),
+):
+
+    return set_user_to_admin(db=db, user=user, user_id=user_id)
 
 @user.put("/users", response_model=User, tags=["user"])
 def update_post(

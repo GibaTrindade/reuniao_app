@@ -24,3 +24,15 @@ class ChangePassword(BaseModel):
     current_password: str
     new_password: str
     confirm_password: str
+
+
+class UserUpdate(BaseModel):
+    is_admin: bool = None
+    #is_active: bool = None
+    #is_partner: bool = None
+    #is_admin: bool = None
+    #email: str = None
+    #password: str = None
+
+    class Config:
+        orm_mode = True

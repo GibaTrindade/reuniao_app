@@ -13,7 +13,8 @@ from .config import settings
 from .configs.db import SessionLocal, Base, engine
 from .models.index import Participante, Encaminhamento, Reuniao  , User as User_Model
 from .schemas.index import  UserCreate, User as User_Schema, EncaminhamentoCreate,\
-      EncaminhamentoUpdate, ReuniaoCreate, ReuniaoUpdate, ParticipanteCreate, ParticipanteUpdate
+      EncaminhamentoUpdate, ReuniaoCreate, ReuniaoUpdate, ParticipanteCreate, ParticipanteUpdate,\
+      UserUpdate
 
 SECRET = settings.TOKEN_SECRET
 
@@ -73,6 +74,19 @@ def update_user(db: orm.Session, user_id: int, user: UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def set_user_to_admin(db: orm.Session, user_id: int, user: UserUpdate ):
+    db_user = get_user_by_id(db=db, user_id=user_id)
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User não encontrado!")
+    user_data = user.dict(exclude_unset=True)
+    for key, value in user_data.items():
+        setattr(db_user, key, value)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
 
 async def create_token(user: User_Model):
     user_schema_obj = User_Schema.from_orm(user)

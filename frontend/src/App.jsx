@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Register from "./components/Register";
 import Header from "./components/Header";
 import Login from "./components/Login";
+import TabelaReuniao from "./components/TabelaReunioes";
 import { UserContext } from "./context/UserContext";
 
 
@@ -10,7 +11,17 @@ import { UserContext } from "./context/UserContext";
 const App = () => {
   const [message, setMessage] = useState("")
   const [token, , user] = useContext(UserContext);
+  const [login, setLogin] = useState(true)
+  const [register, setRegister] = useState(false)
 
+  const showLogin = () => {
+    setLogin(true)
+    setRegister(false)
+  }
+  const showRegister = () => {
+    setLogin(false)
+    setRegister(true)
+  }
 
   const getWelcomeMessage = async () => {
     const requestOptions = {
@@ -35,17 +46,26 @@ const App = () => {
 
   return (
     <>
-      <Header title={"Sala de Reunião"} />
+      <Header title={"Sala de Reunião"} showLogin={showLogin} showRegister={showRegister}/>
       <div className="columns">
         <div className="column"></div>
         <div className="column m-5 is-two-thirds">
           {
-            !token ? (
+            !token && login && (
               <div className="columns">
-                <Register /> <Login />
+                 <Login />
               </div>
-            ) : (
-              <p>User é admin: {JSON.stringify(user ? user.is_admin : "")}</p>
+            )
+          } 
+          {
+            !token && register && (
+              <div className="columns">
+                <Register /> 
+              </div>
+            )
+          } 
+          {token && (
+              <TabelaReuniao />
             )
           }
         </div>

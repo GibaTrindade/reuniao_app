@@ -13,18 +13,22 @@ import json
 reuniao = APIRouter()
 
 #response_model=List[Reuniao],
-@reuniao.get("/reuniao", response_model=List[Reuniao], tags=["reuniao"])#, response_model=List[Reuniao]
+@reuniao.get("/reunioes", response_model=List[Reuniao], tags=["reuniao"])#, response_model=List[Reuniao]
 async def read_data(db: orm.Session=Depends(get_db)):
     db_reuniao = get_all_reunioes(db=db)
     return db_reuniao
 
+@reuniao.get("/reuniao/{id}", response_model=Reuniao, tags=["reuniao"])#, response_model=List[Reuniao]
+async def read_data(id: int, db: orm.Session=Depends(get_db)):
+    db_reuniao: BD_Reuniao = get_reuniao_by_id(db, id)
+    return db_reuniao
 
 #@reuniao.get("/reuniao/{id}", tags=["reuniao"])
 #async def read_data(id: int, db: orm.Session=Depends(get_db)):
 #    return get_reuniao_by_id(db=db, reuniao_id=id)
 
 
-@reuniao.post("/reunioes/", response_model=Reuniao, tags=["reuniao"])
+@reuniao.post("/reuniao", response_model=Reuniao, tags=["reuniao"])
 def criar_reuniao(reuniao: ReuniaoCreate, db: orm.Session = Depends(get_db)):
     bd_reuniao = create_reuniao(reuniao, db)
     return bd_reuniao
@@ -41,7 +45,7 @@ def adicionar_encaminhamento(reuniao_id: int, encaminhamento_id: int, db: orm.Se
     
     return {"message": "Reunião adicionada ao encaminhamento com sucesso."}
 
-@reuniao.patch("/reuniao/{item_id}", response_model=Reuniao, tags=["reuniao"])
+@reuniao.patch("/reuniao/{reuniao_id}", response_model=Reuniao, tags=["reuniao"])
 def update_item(reuniao_id: str, reuniao: ReuniaoUpdate, db: orm.Session = Depends(get_db)):
     db_reuniao = update_reuniao(db=db, reuniao_id=reuniao_id, reuniao=reuniao)
     

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { UserContext } from "../context/UserContext";
 
-const Header = ({ title }) => {
+const Header = ({ title, showLogin, showRegister }) => {
   const [token, setToken] = useContext(UserContext);
 
   const handleLogout = () => {
@@ -12,10 +12,19 @@ const Header = ({ title }) => {
   return (
     <div className="has-text-centered m-6">
       <h1 className="title">{title}</h1>
-      {token && (
+      {token ? (
         <button className="button" onClick={handleLogout}>
           Logout
         </button>
+      ) : (
+        <>
+          <button className="button" onClick={showLogin}>
+            Login
+          </button>
+          <button className="button" onClick={showRegister}>
+          Registrar
+        </button>
+        </>
       )}
     </div>
   );

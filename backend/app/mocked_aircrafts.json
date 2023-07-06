@@ -1,0 +1,42 @@
+{
+    "aircrafts": [
+        {
+            "id": 1,
+            "aicraftName": "Challenger 601",
+            "aicraftImage": "../static/images/challenger_350datauri",
+            "aicraftDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 2,
+            "aicraftName": "Gulfstream G200",
+            "aicraftImage": "../static/images/challenger_350datauri",
+            "aicraftDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 3,
+            "aicraftName": "Challenger 350",
+            "aicraftImage": "../static/images/challenger_350datauri",
+            "aicraftDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 4,
+            "aicraftName": "Gulfstream G700",
+            "aicraftImage": "../static/images/challenger_350datauri",
+            "aicraftDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 5,
+            "aicraftName": "Gulfstream G650",
+            "aicraftImage": "../static/images/challenger_350datauri",
+            "aicraftDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 6,
+            "aicraftName": "Gulfstream G100",
+            "aicraftImage": "../static/images/challenger_350datauri",
+            "aicraftDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    ]
+}
+
+
